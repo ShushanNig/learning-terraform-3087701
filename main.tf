@@ -48,7 +48,7 @@ module "vpc" {
 module "web-sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.16.2"
-  name = "web new"
+  name = "web-sg"
 
   vpc_id = module.vpc.public_subnets[0]
 
