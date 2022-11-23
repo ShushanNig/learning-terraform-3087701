@@ -19,7 +19,7 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.app_ami.id
   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [module.web-sg.security_group_id]
+  vpc_security_group_ids = ["${module.web-sg.security_group_id}"]
 
   tags = {
     Name = "HelloWorld"
@@ -50,7 +50,7 @@ module "web-sg" {
   version = "4.16.2"
   name = "web-sg"
 
-  vpc_id = "module.dev-vpc.public_subnets[0]"
+  vpc_id = module.dev-vpc.public_subnets[0]
 
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"] 
