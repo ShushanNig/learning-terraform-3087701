@@ -50,7 +50,7 @@ module "web-sg" {
   version = "4.16.2"
   name = "web-sg"
 
-  vpc_id = module.dev-vpc.public_subnets[0].id
+  vpc_id = "module.dev-vpc.public_subnets[0]"
 
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"] 
