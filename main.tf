@@ -15,11 +15,11 @@ data "aws_ami" "app_ami" {
 }
 
 
-resource "aws_instance" "web" {
+resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [module.web_sg.security_group_id]
+  vpc_security_group_ids = [module.blog_sg.security_group_id]
 
   tags = {
     Name = "HelloWorld"
@@ -28,7 +28,7 @@ resource "aws_instance" "web" {
 }
 
 
-module "vpc" {
+module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "dev"
@@ -45,12 +45,12 @@ module "vpc" {
   }
 }
 
-module "web_sg" {
+module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.16.2"
-  name = "web-sg"
+  name = "blog_sg"
 
-  vpc_id = module.vpc.public_subnets[0]
+  vpc_id = module.blog_vpc.public_subnets[0]
 
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
