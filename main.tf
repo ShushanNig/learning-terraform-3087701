@@ -28,10 +28,10 @@ resource "aws_instance" "web" {
 }
 
 
-module "dev-vpc" {
+module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "dev-vpc"
+  name = "dev"
   cidr = "10.0.0.0/16"
 
   azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
@@ -50,10 +50,10 @@ module "web-sg" {
   version = "4.16.2"
   name = "web-sg"
 
-  vpc_id = module.dev-vpc.vpc_id
+  vpc_id = module.vpc.public_subnets[0]
 
   ingress_rules       = ["http-80-tcp","https-443-tcp"]
-  ingress_cidr_blocks = ["0.0.0.0/0"] 
+  ingress_cidr_blocks = ["0.0.0.0/0"]
 
   egress_rules        = ["all-all"]
   egress_cidr_blocks  = ["0.0.0.0/0"] 
