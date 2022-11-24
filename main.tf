@@ -19,7 +19,7 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.app_ami.id
   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [module.web-sg.security_group_id]
+  vpc_security_group_ids = [module.web_sg.security_group_id]
 
   tags = {
     Name = "HelloWorld"
@@ -45,7 +45,7 @@ module "vpc" {
   }
 }
 
-module "web-sg" {
+module "web_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.16.2"
   name = "web-sg"
