@@ -39,6 +39,7 @@ resource "aws_instance" "blog" {
 
   tags = {
     Name = "Learning Terraform"
+    Owner = "Shushan"
   }
 }
 
