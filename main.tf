@@ -43,6 +43,8 @@ module "autoscaling" {
   image_id          = data.aws_ami.app_ami.id
   instance_type     = var.instance
 
+}
+
 module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
